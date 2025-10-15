@@ -116,7 +116,7 @@ namespace MyFoodDelivery1.Controllers
                 .Include(o => o.OrderItems)
                     .ThenInclude(od => od.Dish)
                     .ThenInclude(dr => dr.Restaurant)
-                .Where(o => o.CustomerId == customerId).OrderByDescending(s => s.OrderDate).ThenBy(s => s.Status)
+                .Where(o => o.CustomerId == customerId).OrderBy(s => s.Status).ThenByDescending(s => s.OrderDate)
                 .ToList();
 
             var customerOrders = new List<CustomerOrderViewModel>();
