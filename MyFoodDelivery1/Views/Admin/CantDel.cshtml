@@ -1,0 +1,10 @@
+﻿<div class="text-danger"><h3>Не можна видалити @(@ViewBag.Obj == 0 ? "ресторан по якому існує замовлення" : "страву, що фігурує в замовленні") !</h3></div>
+@if (ViewBag.Obj == 0)
+{
+    <div><a asp-action="RestaurantTotal">Повернутися</a></div>
+}
+else
+{
+
+    <div><a asp-action="DishTotal">Повернутися</a></div>
+}

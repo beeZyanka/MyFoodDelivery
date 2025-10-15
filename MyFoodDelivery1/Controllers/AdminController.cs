@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using MyFoodDelivery1.Models;
 using MyFoodDelivery1.Services;
 using MyFoodDelivery1.ViewModels;
+using static NuGet.Packaging.PackagingConstants;
 
 namespace MyFoodDelivery1.Controllers
 {
@@ -74,14 +75,31 @@ namespace MyFoodDelivery1.Controllers
             {
                 return NotFound();
             }
-
-            return View(restaurant);
+            //перевіряємо чи є замовлення по даному ресторану
+            var xx = _context.OrderItems
+                .AsNoTracking()
+                .Include(o => o.Dish)
+                    .ThenInclude(r => r.Restaurant)
+                .ToList().Any(oi => (oi.Dish.Restaurant!=null && oi.Dish.Restaurant.Id == id));
+            if (xx)
+            {
+                ViewBag.Obj = 0; //0 -ресторан; 1 -меню
+                return View("CantDel");
+            }
+            else
+            { 
+                return View(restaurant);
+            }
         }
-        
+        public IActionResult CantDel()
+        {
+            return View();
+        }
         //Пост метод видалення ресторану
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            
             //видаляємо з БД
             var restaurant = await _context.Restaurants.FindAsync(id);
             if (restaurant != null)
@@ -230,7 +248,20 @@ namespace MyFoodDelivery1.Controllers
             {
                 return NotFound();
             }
-
+            //перевіряємо чи є замовлення по даній страві
+            var xx = _context.OrderItems
+                .AsNoTracking()
+                .Include(o => o.Dish)
+                .ToList().Any(oi => (oi.Dish != null && oi.Dish.Id == id));
+            if (xx)
+            {
+                ViewBag.Obj = 1; //0 -ресторан; 1 -меню
+                return View("CantDel");
+            }
+            else
+            {
+                return View(dish);
+            }
             return View(dish);
         }
 
