@@ -1,0 +1,165 @@
+﻿@model IEnumerable<MyFoodDelivery1.Models.Order>
+
+<div class=" container-fluid mt-2">
+    <div class=" card">
+        <div class="card-header bg-dark text-light">
+            <h3 class="mb-0">Адміністрування замовлень</h3>
+        </div>
+        <div class="card-body">
+            
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th> 
+                                # замовлення
+                            </th>
+                            <th>
+                                дата замовлення
+                            </th>
+                            <th>
+                                Клієнт
+                            </th>
+                            <th> Ресторан</th>
+                            <th>
+                                Статус
+                            </th>
+                            <th>Дія</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                         @foreach (var item in Model)
+                         {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                    
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderDate)
+
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Customer.Name)
+                                </td>
+                                <td>
+                                    @item.OrderItems.FirstOrDefault().Dish.Restaurant.Name
+                                </td>
+                                <td>
+                                    @switch (item.Status)
+                                    {
+                                        case @MyFoodDelivery1.Models.OrderStatus.New:
+                                            <p class="text-warning">@HelperService.GetOrderStatusUkrName(item.Status)</p>
+                                            break;
+                                        case @MyFoodDelivery1.Models.OrderStatus.InProgress:
+                                            <p class="text-primary">@HelperService.GetOrderStatusUkrName(item.Status)</p>
+                                            break;
+                                        case @MyFoodDelivery1.Models.OrderStatus.Completed:
+                                            <p class="text-success">@HelperService.GetOrderStatusUkrName(item.Status)</p>
+                                            break;
+                                        case @MyFoodDelivery1.Models.OrderStatus.Cancelled:
+                                            <p class="text-danger">@HelperService.GetOrderStatusUkrName(item.Status)</p>
+                                            break;
+
+                                        default:
+                                            <p>@HelperService.GetOrderStatusUkrName(item.Status)</p>
+                                            break;
+                                    }
+                                  
+                                      
+                                  
+                                </td>
+                                <td>
+                                    @if (item.Status == MyFoodDelivery1.Models.OrderStatus.New ||
+                                        item.Status == MyFoodDelivery1.Models.OrderStatus.Cancelled)
+                                    {
+                                        
+                                        <a class="badge bg-primary text-light" asp-action="OrderAccept" asp-route-id="@item.Id">В роботу</a>
+                                            @if (item.Status == MyFoodDelivery1.Models.OrderStatus.New)
+                                                { <span>|</span>}
+                                    }
+                                    @if (item.Status == MyFoodDelivery1.Models.OrderStatus.InProgress)
+                                    {
+                                        <a class="badge bg-success text-light" asp-action="OrderComplete" asp-route-id="@item.Id">Виконано</a> 
+                                        @* <a class="badge bg-danger text-light" asp-action="OrderReject" asp-route-id="@item.Id">Скасовано</a> *@
+                                    }
+                                    @if (item.Status == MyFoodDelivery1.Models.OrderStatus.New ||
+                                        item.Status == MyFoodDelivery1.Models.OrderStatus.InProgress)
+                                    {
+                                        @if (item.Status == MyFoodDelivery1.Models.OrderStatus.InProgress)
+                                        {
+                                            <span>|</span>
+                                        }
+                                        @* <a class="badge bg-success text-light" asp-action="OrderComplete" asp-route-id="@item.Id">Виконано</a> <span>|</span> *@
+                                        <a class="badge bg-danger text-light" asp-action="OrderReject" asp-route-id="@item.Id">Скасовано</a>
+                                    }
+                                    
+                    
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+@* 
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>Дія</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.Name)
+                </td>
+                <td>
+                    @MyFoodDelivery1.Models.Helper.GetOrderStatusUkrName(item.Status)
+                   
+                </td>
+                <td>
+                    @if (item.Status == MyFoodDelivery1.Models.OrderStatus.New ||
+                                    item.Status == MyFoodDelivery1.Models.OrderStatus.Cancelled)
+                    {
+                        <a asp-action="OrderAccept" asp-route-id="@item.Id">Прийнято</a>
+                        @if (item.Status == MyFoodDelivery1.Models.OrderStatus.New)
+                        { <span>|</span>}
+                    }
+                    @if (item.Status == MyFoodDelivery1.Models.OrderStatus.New ||
+                              item.Status == MyFoodDelivery1.Models.OrderStatus.InProgress)
+                    {
+                        <a asp-action="OrderComplete" asp-route-id="@item.Id">Виконано</a> <span>|</span>
+                        <a asp-action="OrderReject" asp-route-id="@item.Id">Скасовано</a>
+                    }
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+ *@

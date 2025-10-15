@@ -1,0 +1,84 @@
+﻿@model List<MyFoodDelivery1.ViewModels.CustomerOrderViewModel>
+
+@{
+    // Layout = "~/Views/Shared/_LayoutTest.cshtml";
+    ViewData["Title"] = "Мої замовлення";
+}
+
+<div class="container mt-2">
+    <!-- Card container for orders -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-secondary text-white">
+            <h2 class="mb-0">Мої замовлення</h2>
+            
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.First().OrderId)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().OrderDate)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().RestaurantName)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().Items.First().ItemName)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().Items.First().Price) </th>
+                            <th>@Html.DisplayNameFor(model => model.First().Status)</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model)
+                        {
+                            <tr>
+                                <td>@order.OrderId</td>
+                                <td>@order.OrderDate</td>
+                                <td>@order.RestaurantName</td>
+                                <td>
+                                    <ul class="list-unstyled mb-0">
+                                        @foreach (var item in order.Items)
+                                        {
+                                            <li>
+                                                <span class="text-body">@item.ItemName</span>
+                                                <span class="text-muted">x @item.Cnt</span>
+                                                <span class="text-muted">(@item.Price.ToString("C"))</span>
+                                            </li>
+                                        }
+                                    </ul>
+                                </td>
+                                <td>@order.OrderTotalPrice.ToString("C")</td>
+                                <td>
+                                    @if (order.Status == "New")
+                                    {
+                                        @* <span class="badge bg-warning text-dark">@MyFoodDelivery1.Models.Helper.GetOrderStatusUkrName(order.Status)</span> *@
+                                        <span class="badge bg-warning text-dark">@HelperService.GetOrderStatusUkrName(order.Status)</span>
+                                    }
+                                    else if (order.Status == "InProgress")
+                                    {
+                                        @* <span class="badge bg-primary text-light">@MyFoodDelivery1.Models.Helper.GetOrderStatusUkrName(order.Status)</span> *@
+                                        <span class="badge bg-primary text-light">@HelperService.GetOrderStatusUkrName(order.Status)</span>
+                                    }
+                                    else if (order.Status == "Completed")
+                                    {
+                                        @* <span class="badge bg-success text-light">@MyFoodDelivery1.Models.Helper.GetOrderStatusUkrName(order.Status)</span> *@
+                                        <span class="badge bg-success text-light">@HelperService.GetOrderStatusUkrName(order.Status)</span>
+                                    }
+                                    else if (order.Status == "Cancelled")
+                                    {
+                                        @* <span class="badge bg-danger text-light">@MyFoodDelivery1.Models.Helper.GetOrderStatusUkrName(order.Status)</span> *@
+                                        <span class="badge bg-danger text-light">@HelperService.GetOrderStatusUkrName(order.Status)</span>
+                                    }
+                                    else
+                                    {
+                                       @*  <span class="badge bg-secondary">@MyFoodDelivery1.Models.Helper.GetOrderStatusUkrName(order.Status)</span> *@
+                                        <span class="badge bg-secondary">@HelperService.GetOrderStatusUkrName(order.Status)</span>
+                                    }
+                                </td>
+                               @*  <td>@order.OrderDateTime</td> *@
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

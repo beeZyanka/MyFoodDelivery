@@ -1,0 +1,58 @@
+﻿.content .container-fluid {
+    /* background: bg-light; */
+    /*  background: #E6ECF0; */
+    min-height: 100vh;
+}
+
+    .content .container-fluid .col-1 {
+        min-height: 100vh;
+    }
+.myNavbar {
+    background-image: url('/img/navnav1.jpg');
+    background-size: cover;
+    background-position: center; /* Centers the image */
+    background-repeat: repeat; /* Prevents image repetition */
+}
+.my-background-img {
+    /*background-image: url('https://balthazar.club/uploads/posts/2022-03/1646304867_26-balthazar-club-p-belii-ponchik-28.jpg');*/
+    /*background-image: url('/img/blueberry-l-r.jpg');*/
+    background-image: url('/img/left-right-side.jpg');
+    background-size: cover; /* Ensures the image covers the entire element */
+    background-position: center; /* Centers the image */
+    background-repeat: repeat; /* Prevents image repetition */
+    height: 100vh; /* Adjust height as needed */
+}
+.hero-section {
+    /*background: url('/img/blueberry-paint.jpg');*/
+    background: url('/img/main.jpg');
+    background-repeat: no-repeat;
+    background-position: center /* center*/;
+    background-size: cover;
+    min-height: 100vh;
+    position: relative;
+}
+.overlay {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0,0,0,0.6);
+}
+
+.no_pad_marg {
+    padding: 0;
+    margin: 0;
+}
+
+.w-large {
+    width: 350px;
+}
+
+.w-medium {
+    width: 176px;
+}
+
+.w-small {
+    width: 120px;
+}

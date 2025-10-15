@@ -1,0 +1,35 @@
+﻿@model MyFoodDelivery1.Models.Restaurant
+@{
+    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+
+}
+@{
+    ViewData["Title"] = "Видалення ресторану";
+}
+<div class=" container mt-2">
+    <div class=" card">
+        <div class="card-header bg-secondary text-light">
+            <h2 class="mb-0">Видалення ресторану</h2>
+        </div>
+        <div class="card-body">
+            <div class="card-title">
+                <h5 class="text-muted">Ви впевнені, що хочете видалити ресторан @Model.Name ?</h5>
+            </div>
+            <form asp-action="delete">
+                <input type="hidden" asp-for="Id" />
+                <input type="submit" value="Так" class="btn btn-danger" />
+                <hr />
+                
+            </form>
+
+        </div>
+        <div class="card-footer">
+            <div>
+                <a asp-action="RestaurantTotal">Повернутися</a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+

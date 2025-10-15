@@ -1,0 +1,67 @@
+﻿@model MyFoodDelivery1.ViewModels.MenuViewModel
+@{
+    ViewData["Title"] = "Меню";
+}
+    <div class=" container mt-2">
+        <div class=" card">
+            <div class="card-header bg-secondary text-white">
+                <h2 class="mb-0">@Model.RestaurantName</h2>
+            </div>
+            <div class="card-body">
+            <h5 class="card-title"><i class="bi bi-emoji-sunglasses" style="color: darkorange"></i>&nbsp;@Model.RestaurantAbout</h5>
+                <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Dishes.First().DishName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Dishes.First().DishDescription)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Dishes.First().Price)
+                            </th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Dishes.Count; i++)
+                        {
+                            var item = Model.Dishes[i];
+                            
+                            <tr>
+                                <td>
+                                    @item.DishName
+                                </td>
+                                <td>
+                                    @item.DishDescription
+                                </td>
+                                <td>
+                                    @item.Price
+                                </td>
+                               
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                </div>
+
+            </div>
+        <div class="card-footer mt-xl-4 mb-4" >
+                <div class="container">
+                    <div class="row">
+                        <div class="col-2">
+                        <a class="btn btn-outline-success" asp-action="PlaceOrder" asp-controller="Customers" asp-route-id="@Model.RestaurantId">Замовити тут</a>
+                        </div>
+                        <div class="col-6">
+                        <a class="btn btn-outline-info" asp-action="GetRestaurants" asp-controller="Restaurants">Повернутися до вибору ресторанів</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
