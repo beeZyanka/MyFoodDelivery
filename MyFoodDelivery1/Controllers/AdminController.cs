@@ -12,12 +12,14 @@ namespace MyFoodDelivery1.Controllers
     public class AdminController : Controller
     {
         private readonly AppDbContext _context;
-        //масив інтів для позначення рейтингу ресторану
+        //масив для позначення рейтингу ресторану
         private readonly int[] _rateRestaurant = { 1, 2, 3, 4, 5 };
 
         public AdminController(AppDbContext context)
         {
             _context = context;
+
+
         }
 
         public IActionResult Index()
