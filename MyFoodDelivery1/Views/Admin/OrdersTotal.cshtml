@@ -22,6 +22,9 @@
                             </th>
                             <th> Ресторан</th>
                             <th>
+                                Сума
+                            </th>
+                            <th>
                                 Статус
                             </th>
                             <th>Дія</th>
@@ -44,6 +47,9 @@
                                 </td>
                                 <td>
                                     @item.OrderItems.FirstOrDefault().Dish.Restaurant.Name
+                                </td>
+                                <td>
+                                    @item.PriceTotal
                                 </td>
                                 <td>
                                     @switch (item.Status)

@@ -262,7 +262,7 @@ namespace MyFoodDelivery1.Controllers
             {
                 return View(dish);
             }
-            return View(dish);
+            
         }
 
         [HttpPost, ActionName("DishDelete")]
@@ -337,7 +337,7 @@ namespace MyFoodDelivery1.Controllers
                                 .Include(oi => oi.OrderItems)
                                     .ThenInclude(od => od.Dish)
                                     .ThenInclude(dr => dr.Restaurant)
-                                    .OrderBy(s => s.CustomerId)
+                                    .OrderByDescending(s => s.CustomerId)
                                 .ThenBy(s => s.Status).ThenByDescending(s => s.OrderDate)
                 ;
             ViewBag.ActivePage = 2;
